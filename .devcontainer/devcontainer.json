@@ -20,7 +20,7 @@
 		}
 	},
 
-	"postStartCommand": "git config --global --add safe.directory /workspaces/80-days-gemini"
+	"postStartCommand": "git config --global --add safe.directory /workspaces/80-days-gemini && cd /workspaces/80-days-gemini && pre-commit autoupdate && pre-commit install"
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
