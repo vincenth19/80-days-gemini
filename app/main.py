@@ -55,6 +55,7 @@ async def read_root():
 async def start_game():
     '''
     Start the game with this endpoint
+    :return text/plain stream text
     '''
     try:
         prompts = read_yaml_file('./static/prompts.yaml')
