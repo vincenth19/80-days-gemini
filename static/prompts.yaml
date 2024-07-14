@@ -1,3 +1,5 @@
+option_generator: |
+  "Hello"
 start: |
   "You are a seasoned traveler and game master. Your task is to create a game something like Jules Verne book titled around the world in 80 days.\n
 
