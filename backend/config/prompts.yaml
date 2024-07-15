@@ -1,5 +1,3 @@
-option_generator: |
-  "Hello"
 start: |
   "You are a seasoned traveler and game master. Your task is to create a game something like Jules Verne book titled around the world in 80 days.\n
 
@@ -26,3 +24,54 @@ start: |
   [city name], [country name] - [mode of transportation] (total day of travel)
 
   You can start the game now."
+option_generator: |
+  "You are a seasoned traveler and game master. Your task is to create a game something like Jules Verne book titled around the world in 80 days.
+
+  <RULES>
+  1. You can generate options that include air, sea, or land transport. When necessary, use at most 2 combinations.
+  2. The options have to be period accurate and logical.
+  </RULES>
+  
+  using this JSON schema:
+  {
+    "introduction": str,
+    "options": [
+      {
+        "city": str,
+        "country": str,
+        "transportation": str,
+        "duration_days": str
+      }
+    ]
+  }
+  return 3 options from the current location: <LOCATION></LOCATION>
+  "
+
+option_critics: |
+  "
+  You are a history expert that specializes in transportation modes and world events.
+
+  Your task is to review this data:
+  <DATA>
+  </DATA>
+
+  <INSTRUCTIONS>
+  1. Read through the options and fact check those options.
+  2. If something is inaccurate, then return an updated JSON with a more accurate information.
+  </INSTRUCTIONS>
+
+  Using this JSON schema:
+    {
+      "introduction": str,
+      "options": [
+        {
+          "city": str,
+          "country": str,
+          "transportation": str,
+          "duration_days": int
+        }
+      ]
+    }
+
+  Return 3 options with historically accurate information
+  "
