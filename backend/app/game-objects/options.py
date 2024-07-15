@@ -16,8 +16,20 @@ class JourneyPath():
         self.prompts = Prompts(prompt_yaml, logger=self.logger)
         self.options = self.generate_options(current_city)
 
-    def generate_options(self, current_city, critic:bool = True):
+    def generate_options(self, current_city:str, critic:bool = True) -> str:
+        """
+        Generate options based on the current city with LLM
+        
+        :param current_city: The name of the current city. Defaults to "London".
+        :type current_city: str
+        :param critic: A boolean value indicating whether or not to run LLM to evaluate/update options. Defaults to True.
+        :type critic: bool, optional
+        
+        :return: The generated options as a JSON-formatted string.
+        :rtype: str
+        """
         self.logger.info(f'generating next paths from {current_city}')
+        # insert current city into option_generator prompt and generate options with LLM
         option_generator_prompt = self.prompts.insert_data_blocks(
             'option_generator', 
             data_block_dict={'LOCATION': current_city})
@@ -27,6 +39,7 @@ class JourneyPath():
         
         if critic:
             self.logger.info(f'running critic llm')
+            # insert generated option JSON between DATA tag in option_generator prompt
             option_critic_prompt = self.prompts.insert_data_blocks(
                 'option_generator', 
                 data_block_dict={'DATA': options.text})
