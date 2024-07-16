@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
-from app.services.file import read_yaml_file
+from app.utils.file import read_yaml_file
 from app.services.gemini import GeminiClient
 
 router = APIRouter(
