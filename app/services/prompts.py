@@ -1,13 +1,12 @@
 import yaml
 import re
 import copy
-
+from app.lib.file import read_yaml_file
 class Prompts():
     """Class to handle prompts.yaml"""
 
     def __init__(self, prompt_yaml, logger):
-        with open(prompt_yaml, 'r') as f:
-            self.collections = yaml.safe_load(f)
+        self.collections = read_yaml_file(prompt_yaml)
         self.logger = logger
 
     def insert_data_blocks(self, prompt_key:str, data_block_dict:dict) -> str:

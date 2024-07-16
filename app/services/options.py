@@ -4,7 +4,6 @@ from prompts import Prompts
 import os
 import logging
 
-
 class JourneyPath():
     def __init__(self,
                  generator: genai.GenerativeModel,
