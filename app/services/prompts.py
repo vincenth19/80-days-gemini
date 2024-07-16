@@ -1,7 +1,6 @@
-import yaml
 import re
 import copy
-from app.lib.file import read_yaml_file
+from app.services.file import read_yaml_file
 class Prompts():
     """Class to handle prompts.yaml"""
 
