@@ -28,7 +28,7 @@ jobs:
 
       - name: Install gitleaks
         run: |
-          go install github.com/gitleaks/gitleaks/v8/cmd/gitleaks@latest
+          go install github.com/gitleaks/gitleaks/v8@latest
 
       - name: Run gitleaks
         run: |
