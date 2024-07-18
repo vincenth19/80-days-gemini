@@ -1,15 +1,7 @@
-FROM golang:1.21 AS git-leaks-builder
-
-RUN git clone https://github.com/gitleaks/gitleaks.git && \
-    cd gitleaks && \
-    VERSION=$(git describe --tags --abbrev=0) && \
-    CGO_ENABLED=0 go build -o bin/gitleaks -ldflags "-X="github.com/zricethezav/gitleaks/v8/cmd.Version=${VERSION}
-
 FROM python:3.12-slim
 
-COPY --from=git-leaks-builder /go/gitleaks/bin/* /usr/bin
-
-RUN apt-get update && apt-get install -y apt-transport-https ca-certificates gnupg curl
+RUN apt-get update && apt-get install -y apt-transport-https ca-certificates gnupg curl locales && \
+    locale-gen en_US.UTF-8
 
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
 
@@ -18,8 +10,11 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
 USER root
 
 RUN apt-get update && apt-get install -y git vim net-tools build-essential google-cloud-cli=473.0.0-0 \
-    && pip install pre-commit \
     && useradd -u 1000 -m docker
+
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 WORKDIR /
 
