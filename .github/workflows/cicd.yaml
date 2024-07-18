@@ -21,18 +21,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Golang
+      - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: 1.21
 
-      - name: Install gitleaks
+      - name: Install dependencies
         run: |
-          go install github.com/zricethezav/gitleaks/v8/cmd/gitleaks@latest
-          
+          sudo apt-get update
+          sudo apt-get install -y git
+
+      - name: Clone gitleaks
+        run: |
+          git clone https://github.com/gitleaks/gitleaks.git
+
+      - name: Build gitleaks
+        run: |
+          cd gitleaks
+          VERSION=$(git describe --tags --abbrev=0)
+          CGO_ENABLED=0 go build -o bin/gitleaks -ldflags "-X github.com/zricethezav/gitleaks/v8/cmd.Version=${VERSION}"
+
       - name: Run gitleaks
         run: |
-          gitleaks detect --source . --verbose --redact
+          ./gitleaks/bin/gitleaks detect --source . --verbose --redact
 
   dockerize-and-deploy:
     if: github.ref == 'refs/heads/main'
