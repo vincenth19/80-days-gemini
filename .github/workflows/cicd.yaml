@@ -19,31 +19,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/checkout@v4
         with:
-          go-version: 1.21
+          fetch-depth: 0
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
-
-      - name: Clone gitleaks
-        run: |
-          git clone https://github.com/gitleaks/gitleaks.git
-
-      - name: Build gitleaks
-        run: |
-          cd gitleaks
-          VERSION=$(git describe --tags --abbrev=0)
-          CGO_ENABLED=0 go build -o bin/gitleaks -ldflags "-X github.com/zricethezav/gitleaks/v8/cmd.Version=${VERSION}"
+      - name: Fetch all tags
+        run: git fetch --tags
 
       - name: Run gitleaks
-        run: |
-          ./gitleaks/bin/gitleaks detect --source . --verbose --redact
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   dockerize-and-deploy:
     if: github.ref == 'refs/heads/main'
