@@ -1,18 +1,18 @@
 class User():
     def __init__(self,
-                 user_id,
+                 id,
                  username,
                  creation_time,
                  last_updated,
                  game_ids=[]):
-        self.user_id = user_id
+        self.id = id
         self.username = username
         self.creation_time = creation_time 
         self.last_updated = last_updated
         self.game_ids = game_ids
 
     def to_dict(self):
-        return {"user_id": self.user_id,
+        return {"id": self.id,
                 "username": self.username,
                 "creation_time": self.creation_time,
                 "last_updated": self.last_updated,
