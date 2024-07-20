@@ -1,4 +1,4 @@
-name: Deploy to Cloud Run
+name: CI/CD Pipeline
 
 env:
   SERVICE_NAME: eighty-days-api-service
@@ -9,10 +9,32 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - '*'
 
 jobs:
-  dockerize-and-deploy:
+  secret-scanning:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all tags
+        run: git fetch --tags
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dockerize-and-deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: secret-scanning
 
     steps:
       - name: Checkout repository
