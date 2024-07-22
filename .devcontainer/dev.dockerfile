@@ -9,7 +9,8 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
 
 USER root
 
-RUN apt-get update && apt-get install -y git vim net-tools build-essential google-cloud-cli=473.0.0-0 \
+RUN apt-get update \
+    && apt-get install -y git vim net-tools build-essential google-cloud-cli=473.0.0-0 jq \
     && useradd -u 1000 -m docker
 
 WORKDIR /
