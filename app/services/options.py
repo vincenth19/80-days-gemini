@@ -1,8 +1,9 @@
 import google.generativeai as genai
 from pathlib import Path
-from prompts import Prompts
+from app.services.prompts import Prompts
 import os
 import logging
+import json
 
 class JourneyPath():
     def __init__(self,
@@ -46,7 +47,7 @@ class JourneyPath():
                 option_critic_prompt, 
                 generation_config={"response_mime_type": "application/json"})
         
-        return options.text
+        return json.loads(options.text)
 
 ## FOR DEBUGGING
 # if __name__=="__main__":
