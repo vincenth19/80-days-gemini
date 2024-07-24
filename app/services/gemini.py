@@ -4,7 +4,7 @@ import os
 from typing import Dict, Optional
 
 load_dotenv()
-_api_key = os.getenv('GEMINI_API_KEY')
+_api_key = os.environ['GEMINI_API_KEY']
 _model_name = os.getenv('GEMIN_MODEL', 'gemini-1.5-flash')
 
 class GeminiClient:
