@@ -61,8 +61,6 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           echo SERVICE_NAME $SERVICE_NAME
-          gcloud run deploy $SERVICE_NAME \
-            --image ${{ env.DOCKER_IMAGE_URL }}:latest \
-            --platform managed \
-            --region asia-east1 \
-            --allow-unauthenticated
+          gcloud run services replace service.yaml \
+          --set-env-vars "PROJECT_ID=${{ env.PROJECT_ID }}" \
+          --region asia-east1
