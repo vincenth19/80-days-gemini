@@ -35,4 +35,9 @@ spec:
                 secretKeyRef:
                   name: GAME_SAVES_COLLECTION 
                   key: latest
+            - name: FIRESTORE_PROJECT_ID 
+              valueFrom:
+                secretKeyRef:
+                  name: FIRESTORE_PROJECT_ID 
+                  key: latest
             

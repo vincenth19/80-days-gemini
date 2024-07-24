@@ -6,7 +6,7 @@ from app.services.gemini import GeminiClient
 from app.services.database import FirestoreClient
 from loguru import logger
 
-db_client = FirestoreClient(os.getenv('PROJECT_ID'), logger=logger)
+db_client = FirestoreClient(os.environ['FIRESTORE_PROJECT_ID'], logger=logger)
 
 router = APIRouter(
     prefix="/game",
