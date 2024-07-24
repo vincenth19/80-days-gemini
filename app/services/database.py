@@ -6,9 +6,9 @@ from app.services.objects import User,GameSaveData
 from google.cloud import firestore
 from loguru import logger
 
-FIREBASE_DB_NAME = os.getenv('FIREBASE_DB_NAME')
-USERS_COLLECTION = os.getenv('USERS_COLLECTION')
-GAME_SAVES_COLLECTION = os.getenv('GAME_SAVES_COLLECTION')
+FIREBASE_DB_NAME = os.environ['FIREBASE_DB_NAME']
+USERS_COLLECTION = os.environ['USERS_COLLECTION']
+GAME_SAVES_COLLECTION = os.environ['GAME_SAVES_COLLECTION']
 
 class FirestoreClient():
     def __init__(self, project_id, logger: logging.Logger):
