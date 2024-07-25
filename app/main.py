@@ -27,6 +27,6 @@ app.add_middleware(
 async def read_root():
      return RedirectResponse("/docs")
 
-@app.get("/hello")
+@app.post("/hello")
 def say_hello():
      return {'response': 'hello'}
