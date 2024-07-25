@@ -30,7 +30,7 @@ def retrieve_save(user_id, game_id):
 def delete_save(user_id, game_id):
     return db_client.delete_game_save(user_id, game_id)
 
-@router.post("/options/path")
+@router.get("/options/path")
 def generate_path_option(location):
     gemini_client = GeminiClient()
     model = gemini_client.use_gemini()
