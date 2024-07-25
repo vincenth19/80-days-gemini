@@ -7,7 +7,7 @@ spec:
     spec:
       serviceAccountName: gh-80-days-gemini@days-gemini.iam.gserviceaccount.com
       containers:
-        - image: asia-east1-docker.pkg.dev/days-gemini/eighty-days-api-img/eighty-days-api-img:latest
+        - image: DAYS_BACKEND_IMAGE_NAME
           ports:
             - containerPort: 8000
           env:

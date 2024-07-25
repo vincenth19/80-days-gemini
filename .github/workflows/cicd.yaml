@@ -61,5 +61,8 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           echo SERVICE_NAME $SERVICE_NAME
+
+          sed -i 's/DAYS_BACKEND_IMAGE_NAME/${{ env.DOCKER_IMAGE_URL }}:latest/g' service.yaml
+
           gcloud run services replace service.yaml \
           --region asia-east1
