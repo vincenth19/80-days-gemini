@@ -60,12 +60,9 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-          sudo apt update
-          sudo apt install sed
-
           echo SERVICE_NAME $SERVICE_NAME
 
-          sed -i 's/DAYS_BACKEND_IMAGE_NAME/${{ env.DOCKER_IMAGE_URL }}:latest/g' service.yaml
+          sed -i 's|DAYS_BACKEND_IMAGE_NAME|${{ env.DOCKER_IMAGE_URL }}:latest|g' service.yaml
 
           gcloud run services replace service.yaml \
           --region asia-east1
